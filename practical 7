@@ -4,6 +4,7 @@ CREATE TABLE Customer (
     Address VARCHAR2(100)
 );
 
+
 CREATE TABLE Orders (
     O_ID NUMBER PRIMARY KEY,
     O_Name VARCHAR2(50),
@@ -11,22 +12,48 @@ CREATE TABLE Orders (
     FOREIGN KEY (C_Id) REFERENCES Customer(C_id)
 );
 
+
 INSERT INTO Customer VALUES 
-    (1, 'John Doe', 'New York'),
-    (2, 'Alice Smith', 'Los Angeles'),
-    (3, 'Bob Johnson', 'Chicago');
+    (11, 'Ravi Kumar', 'Hyderabad'),
+    (12, 'Sneha Sharma', 'Bangalore'),
+    (13, 'Amit Patel', 'Delhi'),
+    (14, 'Neha Roy', 'Mumbai');
+
 
 INSERT INTO Orders VALUES 
-    (101, 'Laptop', 1),
-    (102, 'Mobile', 2),
-    (103, 'Tablet', NULL);
+    (201, 'Smartphone', 11),
+    (202, 'Smartwatch', 12),
+    (203, 'Headphones', NULL),
+    (204, 'Tablet', 14);
 
---INNER JOIN (Customers with Orders)
+
 SELECT C.C_id, C.C_Name, C.Address, O.O_ID, O.O_Name
 FROM Customer C
 INNER JOIN Orders O ON C.C_id = O.C_Id;
 
--- LEFT OUTER JOIN (All Customers, even if they haven't placed an order)
+
+SELECT C.C_id, C.C_Name, C.Address, O.O_ID, O.O_Name
+FROM Customer C
+LEFT OUTER JOIN Orders O ON C.C_id = O.C_Id;
+
+
+SELECT C.C_id, C.C_Name, C.Address, O.O_ID, O.O_Name
+FROM Customer C
+RIGHT OUTER JOIN Orders O ON C.C_id = O.C_Id;
+
+
+SELECT C.C_id, C.C_Name, C.Address, O.O_ID, O.O_Name
+FROM Customer C
+FULL OUTER JOIN Orders O ON C.C_id = O.C_Id;
+
+
+SELECT A.C_id AS Customer1_ID, A.C_Name AS Customer1_Name, 
+       B.C_id AS Customer2_ID, B.C_Name AS Customer2_Name, 
+       A.Address
+FROM Customer A
+JOIN Customer B 
+ON A.Address = B.Address AND A.C_id <> B.C_id;
+
 SELECT C.C_id, C.C_Name, C.Address, O.O_ID, O.O_Name
 FROM Customer C
 LEFT OUTER JOIN Orders O ON C.C_id = O.C_Id;
